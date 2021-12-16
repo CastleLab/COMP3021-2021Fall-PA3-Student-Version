@@ -73,6 +73,7 @@ public class DirectionTest {
                 assertEquals(0, actual.dRow());
                 assertEquals(1, actual.dCol());
             }
+            default -> assertTrue(true);
         }
     }
 

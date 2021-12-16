@@ -110,6 +110,8 @@ public class MainGamePane extends VBox implements GameUIComponent {
         if (gameEnded) {
             return;
         }
+        var lock = gameController.getGameBoard().getLock();
+        lock.lock();
 
         // update the gameBoardPane with the latest game states.
         this.gameBoardPane.showGameState(gameController.getGameStates());
@@ -117,11 +119,14 @@ public class MainGamePane extends VBox implements GameUIComponent {
         // show lose dialog if the move event indicates a player loses and get kicked out of the game board.
         if (e.getMoveResult() instanceof MoveResult.Valid.KickedOut) {
             getPlayerPane(e.getPlayerID()).kickOut();
+            this.getPlayerPane(e.getPlayerID()).stopRobot();
             UIServices.showLoseDialog(gameController.getGameBoard().getPlayer(e.getPlayerID()));
         }
 
         // try to get winners from the game controller
         var winners = gameController.getWinners();
+
+        lock.unlock();
 
         // winners == null means the game is still on going.
         if (winners != null) {

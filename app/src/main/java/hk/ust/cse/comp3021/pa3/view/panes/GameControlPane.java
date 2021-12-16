@@ -104,7 +104,14 @@ public class GameControlPane extends GridPane implements GameUIComponent {
      * @param delegate The automated delegate to control the movement.
      */
     public void delegateControl(MoveDelegate delegate) {
-
+        this.revokeControl();
+        moveDelegate = delegate;
+        moveDelegate.startDelegation(direction -> {
+            Platform.runLater(() -> {
+                move(direction);
+            });
+        });
+        this.disable();
     }
 
     /**
@@ -114,7 +121,10 @@ public class GameControlPane extends GridPane implements GameUIComponent {
      * should be enabled to allow control from GUI, i.e., call {@link GameControlPane#enable()}.
      */
     public void revokeControl() {
-
+        if (moveDelegate != null) {
+            moveDelegate.stopDelegation();
+        }
+        this.enable();
     }
 
     /**
@@ -209,6 +219,9 @@ public class GameControlPane extends GridPane implements GameUIComponent {
      * Performs an undo action on the game.
      */
     public void performUndo() {
+        if (gameController.getGameState().getMoveStack().isEmpty()) {
+            return;
+        }
         var mostRecentMove = gameController.getGameState().getMoveStack().peek();
         this.gameController.processUndo();
         this.moveEvent.get().handle(new MoveEvent(mostRecentMove, player.getId()));

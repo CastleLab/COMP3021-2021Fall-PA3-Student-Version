@@ -37,6 +37,8 @@ public final class GameBoard {
     @NotNull
     private final List<Player> players;
 
+    private final Lock lock = new ReentrantLock();
+
     /**
      * Creates an instance using the provided creation parameters.
      *
@@ -436,5 +438,9 @@ public final class GameBoard {
         }
 
         return count;
+    }
+
+    public Lock getLock() {
+        return lock;
     }
 }

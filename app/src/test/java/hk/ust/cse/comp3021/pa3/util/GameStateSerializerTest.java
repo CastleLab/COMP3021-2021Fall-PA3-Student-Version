@@ -81,7 +81,7 @@ public class GameStateSerializerTest {
         final var gameState = new GameState(gameBoard);
 
         final var strWriter = new StringWriter();
-        try (final var writer = new BufferedWriter(strWriter)) {
+        try (var writer = new BufferedWriter(strWriter)) {
             GameStateSerializer.writeTo(gameState, writer);
         } catch (final IOException e) {
             fail(e);
@@ -119,7 +119,7 @@ public class GameStateSerializerTest {
         final var gameState = new GameState(gameBoard, 10);
 
         final var strWriter = new StringWriter();
-        try (final var writer = new BufferedWriter(strWriter)) {
+        try (var writer = new BufferedWriter(strWriter)) {
             GameStateSerializer.writeTo(gameState, writer);
         } catch (final IOException e) {
             fail(e);
@@ -138,7 +138,7 @@ public class GameStateSerializerTest {
         final var source = String.join(System.lineSeparator(), "3", "3", "", "P..", "MWL", ".GS");
 
         final GameState[] gameStates;
-        try (final var reader = new BufferedReader(new StringReader(source))) {
+        try (var reader = new BufferedReader(new StringReader(source))) {
             gameStates = GameStateSerializer.loadFrom(reader);
         } catch (IOException e) {
             fail(e);
@@ -187,7 +187,7 @@ public class GameStateSerializerTest {
         final var source = String.join(System.lineSeparator(), "3", "3", "10", "P..", "MWL", ".GS");
 
         final GameState[] gameStates;
-        try (final var reader = new BufferedReader(new StringReader(source))) {
+        try (var reader = new BufferedReader(new StringReader(source))) {
             gameStates = GameStateSerializer.loadFrom(reader);
         } catch (IOException e) {
             fail(e);

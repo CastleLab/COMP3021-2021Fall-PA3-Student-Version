@@ -1,7 +1,6 @@
 package hk.ust.cse.comp3021.pa3.controller;
 
 import hk.ust.cse.comp3021.pa3.model.*;
-import hk.ust.cse.comp3021.pa3.util.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -115,8 +114,11 @@ public class GameController {
     public MoveResult processMove(@NotNull final Direction direction, int playerID) {
         Objects.requireNonNull(direction);
 
+        var lock = getGameBoard().getLock();
+        lock.lock();
         var result = this.getGameState(playerID).getGameBoardController().makeMove(direction, playerID);
         if (result == null) {
+            lock.unlock();
             return null;
         }
 
@@ -138,6 +140,7 @@ public class GameController {
             }
         }
 
+        lock.unlock();
         return result;
     }
 
@@ -177,6 +180,38 @@ public class GameController {
      */
     @Nullable
     public Player[] getWinners() {
-        throw new NotImplementedException();
+        if (getGameBoard().getNumGems() == 0) {
+            // not gems left
+            // game ends with multiple winners
+            var winners = new ArrayList<Player>();
+            var maxScore = Integer.MIN_VALUE;
+            for (var state :
+                    getGameStates()) {
+                if (state.hasLost()) {
+                    continue;
+                }
+                if (state.getScore() > maxScore) {
+                    maxScore = state.getScore();
+                    winners.clear();
+                    winners.add(state.getPlayer());
+                } else if (state.getScore() == maxScore) {
+                    winners.add(state.getPlayer());
+                }
+            }
+            return winners.toArray(new Player[0]);
+        } else {
+            var hasPlayer = false;
+            for (var state :
+                    getGameStates()) {
+                if (!state.hasLost()) {
+                    hasPlayer = true;
+                }
+            }
+            if (!hasPlayer) {
+                // no one wins
+                return new Player[0];
+            }
+        }
+        return null;
     }
 }

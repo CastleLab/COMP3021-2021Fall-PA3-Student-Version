@@ -570,12 +570,11 @@ public class GameBoardControllerTest {
     }
 
     // PL*M
-    // ..#.
     @Test
     @Tag("sanity")
     @DisplayName("Make Move - Move hits Mine while picking up entities")
     void testMakeValidMoveToMineCrossingOtherPickUps() {
-        gameBoard = GameBoardUtils.createGameBoard(2, 4, (pos) -> {
+        gameBoard = GameBoardUtils.createGameBoard(1, 4, (pos) -> {
             if (pos.equals(new Position(0, 0))) {
                 return new EntityCell(pos, new Player());
             } else if (pos.equals(new Position(0, 1))) {
@@ -584,8 +583,6 @@ public class GameBoardControllerTest {
                 return new EntityCell(pos, new Gem());
             } else if (pos.equals(new Position(0, 3))) {
                 return new EntityCell(pos, new Mine());
-            } else if (pos.equals(new Position(1, 2))) {
-                return new StopCell(pos);
             } else {
                 return new EntityCell(pos);
             }

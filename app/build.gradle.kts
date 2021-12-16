@@ -110,9 +110,17 @@ tasks {
 
     create<Test>("testProvided") {
         useJUnitPlatform {
-            includeTags("provided")
             includeTags("sanity")
+            includeTags("provided")
             includeTags("actual")
+        }
+    }
+
+    create<Test>("testPA3") {
+        useJUnitPlatform {
+            includeTags("multithreading")
+            includeTags("multiplayer")
+            includeTags("robot")
         }
     }
 

@@ -37,7 +37,10 @@ public class GameBoardController {
      * @param playerId The id of the player to kick out.
      */
     public void kickOut(int playerId) {
-
+        var playerOwner = this.gameBoard.getPlayer(playerId).getOwner();
+        if (playerOwner != null) {
+            playerOwner.setEntity(null);
+        }
     }
 
     /**
