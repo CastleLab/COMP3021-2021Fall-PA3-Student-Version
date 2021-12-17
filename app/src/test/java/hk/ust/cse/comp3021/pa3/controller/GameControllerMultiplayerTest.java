@@ -6,11 +6,12 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class GameControllerMultiplayerTest {
+public class GameControllerMultiplayerTest extends ApplicationTest {
     @Test
     @Tag("multiplayer")
     @DisplayName("Get Winners - the game is not finished yet")

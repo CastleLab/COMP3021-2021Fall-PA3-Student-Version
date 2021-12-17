@@ -5,12 +5,13 @@ import hk.ust.cse.comp3021.pa3.util.Robot;
 import hk.ust.cse.comp3021.pa3.util.TestUtils;
 import hk.ust.cse.comp3021.pa3.util.TimeIntervalGenerator;
 import org.junit.jupiter.api.*;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class StrategyTest {
+public class StrategyTest extends ApplicationTest {
     private GameController loadGame(String resourcePath) throws FileNotFoundException {
         var resource = getClass().getResource(resourcePath);
         assert resource != null;

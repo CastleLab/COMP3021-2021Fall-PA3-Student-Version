@@ -6,6 +6,7 @@ import hk.ust.cse.comp3021.pa3.util.TestUtils;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.jupiter.api.*;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -80,7 +81,7 @@ class GameConsistent {
     }
 }
 
-public class GameConcurrencyTest {
+public class GameConcurrencyTest extends ApplicationTest {
     static class ThreadPlayer extends Thread {
         static ReentrantLock lock = new ReentrantLock();
         static CyclicBarrier startBarrier;

@@ -6,12 +6,13 @@ import hk.ust.cse.comp3021.pa3.util.Robot;
 import hk.ust.cse.comp3021.pa3.util.TimeIntervalGenerator;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class RobotTest {
+public class RobotTest extends ApplicationTest {
     Robot robot0;
     Robot robot1;
     GameController gameController;
